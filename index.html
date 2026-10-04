@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=no">
+          content="width=device-width,
+                   initial-scale=1.0,
+                   user-scalable=no">
 
     <title>Blind-Spot Experiment</title>
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -17,24 +26,92 @@
             color: black;
         }
 
+        /* -----------------------------------
+           PORTRAIT WARNING
+        ----------------------------------- */
+
+        #rotate-warning {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            background: #244f5c;
+            color: white;
+
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            padding: 30px;
+        }
+
+        #rotate-warning .phone {
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        #rotate-warning h2 {
+            font-size: 28px;
+            margin: 10px;
+        }
+
+        #rotate-warning p {
+            font-size: 19px;
+            line-height: 1.5;
+            max-width: 500px;
+        }
+
+        /* If phone is vertical */
+        @media (orientation: portrait) {
+
+            #rotate-warning {
+                display: flex;
+            }
+
+            #experiment-page {
+                display: none;
+            }
+        }
+
+
+        /* -----------------------------------
+           MAIN EXPERIMENT
+        ----------------------------------- */
+
+        #experiment-page {
+            min-height: 100dvh;
+        }
+
         h1 {
             background: #244f5c;
             color: white;
-            padding: 18px;
+            padding: 14px;
             margin: 0;
-            font-size: 28px;
+            font-size: 26px;
         }
 
         .instructions {
-            padding: 20px;
+            padding: 15px;
             font-size: 18px;
-            line-height: 1.5;
+            line-height: 1.4;
         }
 
+        .important {
+            font-weight: bold;
+        }
+
+
+        /* -----------------------------------
+           DOT + CROSS
+        ----------------------------------- */
+
         .experiment {
-            width: 85vw;
-            max-width: 700px;
-            margin: 70px auto;
+            width: 88vw;
+            max-width: 900px;
+
+            margin: 35px auto;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -43,65 +120,195 @@
         .dot {
             width: 24px;
             height: 24px;
+
             background: black;
             border-radius: 50%;
         }
 
         .cross {
-            font-size: 60px;
+            font-size: 64px;
             font-weight: bold;
+            line-height: 1;
         }
+
+
+        /* -----------------------------------
+           BOTTOM INSTRUCTION
+        ----------------------------------- */
 
         .hint {
-            padding: 20px;
+            padding: 15px;
             font-size: 18px;
+            line-height: 1.4;
         }
 
-        .important {
-            font-weight: bold;
+
+        /* -----------------------------------
+           START BUTTON
+        ----------------------------------- */
+
+        #startButton {
+            background: #244f5c;
+            color: white;
+
+            border: none;
+            border-radius: 8px;
+
+            padding: 12px 22px;
+
+            margin-top: 10px;
+
+            font-size: 17px;
+            cursor: pointer;
         }
+
     </style>
 </head>
 
+
 <body>
 
-<h1>Blind-Spot Experiment</h1>
 
-<div class="instructions">
+<!-- ================================
+     PORTRAIT WARNING
+================================ -->
 
-    Close your <span class="important">right eye</span>.
+<div id="rotate-warning">
 
-    <br>
+    <div class="phone">📱 ↻</div>
 
-    Keep your <span class="important">left eye</span>
-    focused on the <b>+</b>.
+    <h2>Please Rotate Your Phone</h2>
 
-    <br><br>
+    <p>
+        This experiment must be performed with your
+        <b>phone held horizontally (landscape mode).</b>
+    </p>
 
-    Do not look directly at the black dot.
-
-</div>
-
-
-<div class="experiment">
-
-    <div class="dot"></div>
-
-    <div class="cross">+</div>
+    <p>
+        Rotate your phone and keep it horizontal
+        during the experiment.
+    </p>
 
 </div>
 
 
-<div class="hint">
 
-    Slowly move the phone toward or away from your face.
+<!-- ================================
+     EXPERIMENT
+================================ -->
 
-    <br><br>
+<div id="experiment-page">
 
-    At a certain distance, the
-    <b>black dot should disappear!</b>
+    <h1>Blind-Spot Experiment</h1>
+
+
+    <div class="instructions">
+
+        Keep your phone
+        <span class="important">horizontal</span>.
+
+        <br>
+
+        Close your
+        <span class="important">right eye</span>.
+
+        <br>
+
+        Keep your
+        <span class="important">left eye</span>
+        focused on the <b>+</b>.
+
+        <br>
+
+        Do not look directly at the black dot.
+
+        <br>
+
+        <button id="startButton" onclick="startExperiment()">
+            Start Experiment
+        </button>
+
+    </div>
+
+
+
+    <div class="experiment">
+
+        <div class="dot"></div>
+
+        <div class="cross">+</div>
+
+    </div>
+
+
+
+    <div class="hint">
+
+        Slowly move the phone
+        <b>toward or away from your face</b>.
+
+        <br><br>
+
+        Keep looking only at the <b>+</b>.
+
+        <br>
+
+        At a certain distance, the
+        <b>black dot should disappear!</b>
+
+    </div>
 
 </div>
+
+
+
+<script>
+
+async function startExperiment() {
+
+    /*
+       Try fullscreen first.
+       Some browsers require fullscreen
+       before orientation can be locked.
+    */
+
+    try {
+
+        if (document.documentElement.requestFullscreen) {
+            await document.documentElement.requestFullscreen();
+        }
+
+    } catch (error) {
+        console.log("Fullscreen not supported.");
+    }
+
+
+    /*
+       Try to force landscape orientation.
+
+       Works on some Android browsers.
+       iPhone/Safari may not allow it.
+    */
+
+    try {
+
+        if (screen.orientation &&
+            screen.orientation.lock) {
+
+            await screen.orientation.lock("landscape");
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Landscape lock is not supported by this browser."
+        );
+    }
+
+}
+
+</script>
+
 
 </body>
 </html>
