@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <title>Blind-Spot Experiment</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: white;
+            color: black;
+        }
+
+        h1 {
+            background: #244f5c;
+            color: white;
+            padding: 18px;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .instructions {
+            padding: 20px;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .experiment {
+            width: 85vw;
+            max-width: 700px;
+            margin: 70px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dot {
+            width: 24px;
+            height: 24px;
+            background: black;
+            border-radius: 50%;
+        }
+
+        .cross {
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .hint {
+            padding: 20px;
+            font-size: 18px;
+        }
+
+        .important {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Blind-Spot Experiment</h1>
+
+<div class="instructions">
+
+    Close your <span class="important">right eye</span>.
+
+    <br>
+
+    Keep your <span class="important">left eye</span>
+    focused on the <b>+</b>.
+
+    <br><br>
+
+    Do not look directly at the black dot.
+
+</div>
+
+
+<div class="experiment">
+
+    <div class="dot"></div>
+
+    <div class="cross">+</div>
+
+</div>
+
+
+<div class="hint">
+
+    Slowly move the phone toward or away from your face.
+
+    <br><br>
+
+    At a certain distance, the
+    <b>black dot should disappear!</b>
+
+</div>
+
+</body>
+</html>
